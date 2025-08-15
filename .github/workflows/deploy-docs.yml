@@ -41,7 +41,7 @@ jobs:
         
     - name: Generate dbt docs
       run: |
-        dbt docs generate --no-populate-cache --profiles-dir .
+        dbt docs generate --no-populate-cache --no-catalog --profiles-dir .
         
     - name: Setup Pages
       uses: actions/configure-pages@v4
