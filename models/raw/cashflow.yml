@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: cashflow
+    description: "Raw cash flow data from vnstock database - Bronze layer (no transformations)"
+    columns:
+      - name: ticker
+        description: "Stock ticker symbol"
+        type: string
+        tests:
+          - not_null
+      
+      - name: investcost
+        description: "Investment cost"
+        type: decimal(20,2)
+      
+      - name: frominvest
+        description: "Cash flow from investing activities"
+        type: decimal(20,2)
+      
+      - name: fromfinancial
+        description: "Cash flow from financing activities"
+        type: decimal(20,2)
+      
+      - name: fromsale
+        description: "Cash flow from sales"
+        type: decimal(20,2)
+      
+      - name: freecashflow
+        description: "Free cash flow"
+        type: decimal(20,2)
+      
+      - name: year
+        description: "Financial year"
+        type: integer
+        tests:
+          - not_null

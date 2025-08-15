@@ -1,0 +1,9 @@
+
+target/
+dbt_packages/
+logs/
+.venv/
+dbt_dwh_main.egg-info/
+dbt_project.yml
+.user.yml
+profiles.yml

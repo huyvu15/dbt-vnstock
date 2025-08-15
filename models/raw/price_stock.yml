@@ -1,0 +1,47 @@
+version: 2
+
+models:
+  - name: price_stock
+    description: "Raw stock price data from vnstock database - Bronze layer (no transformations)"
+    columns:
+      - name: time
+        description: "Timestamp of the price data"
+        type: timestamp
+        tests:
+          - not_null
+      
+      - name: open
+        description: "Opening price"
+        type: decimal(10,4)
+        tests:
+          - not_null
+      
+      - name: high
+        description: "Highest price during the period"
+        type: decimal(10,4)
+        tests:
+          - not_null
+      
+      - name: low
+        description: "Lowest price during the period"
+        type: decimal(10,4)
+        tests:
+          - not_null
+      
+      - name: close
+        description: "Closing price"
+        type: decimal(10,4)
+        tests:
+          - not_null
+      
+      - name: volume
+        description: "Trading volume"
+        type: bigint
+        tests:
+          - not_null
+      
+      - name: ticker
+        description: "Stock ticker symbol"
+        type: string
+        tests:
+          - not_null

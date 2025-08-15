@@ -1,0 +1,101 @@
+version: 2
+
+models:
+  - name: income_statement
+    description: "Raw income statement data from vnstock database - Bronze layer (no transformations)"
+    columns:
+      - name: ticker
+        description: "Stock ticker symbol"
+        type: string
+        tests:
+          - not_null
+      
+      - name: revenue
+        description: "Total revenue"
+        type: decimal(20,2)
+      
+      - name: yearrevenuegrowth
+        description: "Year-over-year revenue growth"
+        type: decimal(10,4)
+      
+      - name: quarterrevenuegrowth
+        description: "Quarter-over-quarter revenue growth"
+        type: decimal(10,4)
+      
+      - name: costofgoodsold
+        description: "Cost of goods sold"
+        type: decimal(20,2)
+      
+      - name: grossprofit
+        description: "Gross profit"
+        type: decimal(20,2)
+      
+      - name: operationexpense
+        description: "Operating expenses"
+        type: decimal(20,2)
+      
+      - name: operationprofit
+        description: "Operating profit"
+        type: decimal(20,2)
+      
+      - name: yearoperationprofitgrowth
+        description: "Year-over-year operating profit growth"
+        type: decimal(10,4)
+      
+      - name: quarteroperationprofitgrowth
+        description: "Quarter-over-quarter operating profit growth"
+        type: decimal(10,4)
+      
+      - name: interestexpense
+        description: "Interest expense"
+        type: decimal(20,2)
+      
+      - name: pretaxprofit
+        description: "Pre-tax profit"
+        type: decimal(20,2)
+      
+      - name: posttaxprofit
+        description: "Post-tax profit"
+        type: decimal(20,2)
+      
+      - name: shareholderincome
+        description: "Shareholder income"
+        type: decimal(20,2)
+      
+      - name: yearshareholderincomegrowth
+        description: "Year-over-year shareholder income growth"
+        type: decimal(10,4)
+      
+      - name: quartershareholderincomegrowth
+        description: "Quarter-over-quarter shareholder income growth"
+        type: decimal(10,4)
+      
+      - name: investprofit
+        description: "Investment profit"
+        type: decimal(20,2)
+      
+      - name: serviceprofit
+        description: "Service profit"
+        type: decimal(20,2)
+      
+      - name: otherprofit
+        description: "Other profit"
+        type: decimal(20,2)
+      
+      - name: provisionexpense
+        description: "Provision expense"
+        type: decimal(20,2)
+      
+      - name: operationincome
+        description: "Operating income"
+        type: decimal(20,2)
+      
+      - name: ebitda
+        description: "EBITDA (Earnings Before Interest, Taxes, Depreciation, and Amortization)"
+        type: decimal(20,2)
+      
+      - name: year
+        description: "Financial year"
+        type: integer
+        tests:
+          - not_null

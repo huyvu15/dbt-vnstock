@@ -1,0 +1,46 @@
+{{
+  config(
+    materialized='table',
+    tags=['silver', 'balance_sheet']
+  )
+}}
+
+SELECT 
+    ticker,
+    shortasset,
+    cash,
+    shortinvest,
+    shortreceivable,
+    inventory,
+    longasset,
+    fixedasset,
+    asset,
+    debt,
+    shortdebt,
+    longdebt,
+    equity,
+    capital,
+    centralbankdeposit,
+    otherbankdeposit,
+    otherbankloan,
+    stockinvest,
+    customerloan,
+    badloan,
+    provision,
+    netcustomerloan,
+    otherasset,
+    otherbankcredit,
+    oweotherbank,
+    owecentralbank,
+    valuablepaper,
+    payableinterest,
+    receivableinterest,
+    deposit,
+    otherdebt,
+    fund,
+    undistributedincome,
+    minorshareholderprofit,
+    payable,
+    year,
+    quarter
+FROM "vnstock"."balance_sheet"
