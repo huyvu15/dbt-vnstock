@@ -15,3 +15,6 @@ target-path: "target"
 clean-targets:        
   - "target"
   - "dbt_packages"
+
+# Hooks để tự động rename file parquet sau khi run
+# on-run-end: "python scripts/rename_parquet_files.py"

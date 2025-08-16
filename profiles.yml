@@ -4,7 +4,7 @@ dbt_dwh_main:
       type:                   athena
       s3_staging_dir:         s3://glutisify-datalake/vnstock/tmp/sliver
       s3_data_dir:            s3://glutisify-datalake/vnstock/silver/
-      s3_data_naming:         unique
+      s3_data_naming:         table
       s3_tmp_table_dir:       s3://glutisify-datalake/vnstock/tmp/
       region_name:            ap-southeast-1
       database:               awsdatacatalog
@@ -12,12 +12,14 @@ dbt_dwh_main:
       aws_profile_name:       "default"
       threads:                3
       num_retries:            1
+      file_format:            parquet
+      compression:            snappy
     
     silver:
       type:                   athena
       s3_staging_dir:         s3://glutisify-datalake/vnstock/silver/
       s3_data_dir:            s3://glutisify-datalake/vnstock/silver/
-      s3_data_naming:         unique
+      s3_data_naming:         table #unique
       s3_tmp_table_dir:       s3://glutisify-datalake/vnstock/tmp/
       region_name:            ap-southeast-1
       database:               awsdatacatalog
@@ -25,6 +27,8 @@ dbt_dwh_main:
       aws_profile_name:       "default"
       threads:                1
       num_retries:            1
+      file_format:            parquet
+      compression:            snappy
   
   target: prod
 
