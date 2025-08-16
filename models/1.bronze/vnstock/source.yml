@@ -1,0 +1,418 @@
+version: 2
+
+sources:
+  - name: source_vnstock
+    description: "Raw data tables from AWS Glue"
+    database: awsdatacatalog
+    schema: vnstock
+    tables:
+      - name: balance_sheet
+        description: "Balance sheet data from AWS Glue"
+        columns:
+          - name: ticker
+            description: "Stock ticker symbol"
+            tests:
+              - not_null
+          - name: asset
+            description: "Total assets"
+            tests:
+              - not_null
+          - name: debt
+            description: "Total debt"
+          - name: equity
+            description: "Total equity"
+          - name: year
+            description: "Year"
+          - name: quarter
+            description: "Quarter"
+      
+      - name: income_statement
+        description: "Income statement data from AWS Glue"
+        columns:
+          - name: ticker
+            description: "Stock ticker symbol"
+            tests:
+              - not_null
+          - name: revenue
+            description: "Total revenue"
+            type: int
+          - name: yearrevenuegrowth
+            description: "Year over year revenue growth"
+            type: double
+          - name: quarterrevenuegrowth
+            description: "Quarter over quarter revenue growth"
+            type: int
+          - name: costofgoodsold
+            description: "Cost of goods sold"
+            type: int
+          - name: grossprofit
+            description: "Gross profit"
+            type: int
+          - name: operationexpense
+            description: "Operating expenses"
+            type: int
+          - name: operationprofit
+            description: "Operating profit"
+            type: int
+          - name: yearoperationprofitgrowth
+            description: "Year over year operating profit growth"
+            type: double
+          - name: quarteroperationprofitgrowth
+            description: "Quarter over quarter operating profit growth"
+            type: int
+          - name: interestexpense
+            description: "Interest expense"
+            type: int
+          - name: pretaxprofit
+            description: "Pre-tax profit"
+            type: int
+          - name: posttaxprofit
+            description: "Post-tax profit"
+            type: int
+          - name: shareholderincome
+            description: "Shareholder income"
+            type: int
+          - name: yearshareholderincomegrowth
+            description: "Year over year shareholder income growth"
+            type: double
+          - name: quartershareholderincomegrowth
+            description: "Quarter over quarter shareholder income growth"
+            type: int
+          - name: investprofit
+            description: "Investment profit"
+            type: int
+          - name: serviceprofit
+            description: "Service profit"
+            type: int
+          - name: otherprofit
+            description: "Other profit"
+            type: int
+          - name: provisionexpense
+            description: "Provision expense"
+            type: int
+          - name: operationincome
+            description: "Operating income"
+            type: int
+          - name: ebitda
+            description: "EBITDA"
+            type: double
+          - name: year
+            description: "Year"
+            type: string
+      
+      - name: cashflow
+        description: "Raw cash flow data from vnstock database - Bronze layer (no transformations)"
+        columns:
+          - name: ticker
+            description: "Stock ticker symbol"
+            type: string
+            tests:
+              - not_null
+          
+          - name: investcost
+            description: "Investment cost"
+            type: decimal(20,2)
+          
+          - name: frominvest
+            description: "Cash flow from investing activities"
+            type: decimal(20,2)
+          
+          - name: fromfinancial
+            description: "Cash flow from financing activities"
+            type: decimal(20,2)
+          
+          - name: fromsale
+            description: "Cash flow from sales"
+            type: decimal(20,2)
+          
+          - name: freecashflow
+            description: "Free cash flow"
+            type: decimal(20,2)
+          
+          - name: year
+            description: "Financial year"
+            type: integer
+            tests:
+              - not_null
+      
+      - name: listing_companies
+        description: "Raw listing companies data from vnstock database - Bronze layer (no transformations)"
+        columns:
+          - name: ticker
+            description: "Stock ticker symbol"
+            type: string
+            tests:
+              - not_null
+              - unique
+          
+          - name: comgroupcode
+            description: "Company group code"
+            type: string
+          
+          - name: organname
+            description: "Organization name"
+            type: string
+          
+          - name: organshortname
+            description: "Organization short name"
+            type: string
+          
+          - name: organtypecode
+            description: "Organization type code"
+            type: string
+          
+          - name: comtypecode
+            description: "Company type code"
+            type: string
+          
+          - name: icbname
+            description: "ICB name"
+            type: string
+          
+          - name: icbnamepath
+            description: "ICB name path"
+            type: string
+          
+          - name: sector
+            description: "Sector"
+            type: string
+          
+          - name: industry
+            description: "Industry"
+            type: string
+          
+          - name: group
+            description: "Group"
+            type: string
+          
+          - name: subgroup
+            description: "Subgroup"
+            type: string
+          
+          - name: icbcode
+            description: "ICB code"
+            type: string
+      
+      - name: price_stock
+        description: "Raw stock price data from vnstock database - Bronze layer (no transformations)"
+        columns:
+          - name: time
+            description: "Timestamp of the price data"
+            type: timestamp
+            tests:
+              - not_null
+          
+          - name: open
+            description: "Opening price"
+            type: decimal(10,4)
+            tests:
+              - not_null
+          
+          - name: high
+            description: "Highest price during the period"
+            type: decimal(10,4)
+            tests:
+              - not_null
+          
+          - name: low
+            description: "Lowest price during the period"
+            type: decimal(10,4)
+            tests:
+              - not_null
+          
+          - name: close
+            description: "Closing price"
+            type: decimal(10,4)
+            tests:
+              - not_null
+          
+          - name: volume
+            description: "Trading volume"
+            type: bigint
+            tests:
+              - not_null
+          
+          - name: ticker
+            description: "Stock ticker symbol"
+            type: string
+            tests:
+              - not_null
+      
+      - name: ratio
+        description: "Raw financial ratios data from vnstock database - Bronze layer (no transformations)"
+        columns:
+          - name: range
+            description: "Date range"
+            type: string
+          
+          - name: ticker
+            description: "Stock ticker symbol"
+            type: string
+            tests:
+              - not_null
+          
+          - name: quarter
+            description: "Financial quarter (1-4)"
+            type: integer
+            tests:
+              - not_null
+              - accepted_values:
+                  values: [1, 2, 3, 4]
+          
+          - name: year
+            description: "Financial year"
+            type: integer
+            tests:
+              - not_null
+          
+          - name: pricetoearning
+            description: "Price to Earnings ratio"
+            type: decimal(10,4)
+          
+          - name: pricetobook
+            description: "Price to Book ratio"
+            type: decimal(10,4)
+          
+          - name: valuebeforeebitda
+            description: "Enterprise Value to EBITDA"
+            type: decimal(10,4)
+          
+          - name: roe
+            description: "Return on Equity"
+            type: decimal(10,4)
+          
+          - name: roa
+            description: "Return on Assets"
+            type: decimal(10,4)
+          
+          - name: daysreceivable
+            description: "Days Receivable"
+            type: decimal(10,2)
+          
+          - name: daysinventory
+            description: "Days Inventory"
+            type: decimal(10,2)
+          
+          - name: dayspayable
+            description: "Days Payable"
+            type: decimal(10,2)
+          
+          - name: ebitoninterest
+            description: "EBIT to Interest ratio"
+            type: decimal(10,4)
+          
+          - name: earningpershare
+            description: "Earnings Per Share"
+            type: decimal(10,4)
+          
+          - name: bookvaluepershare
+            description: "Book Value Per Share"
+            type: decimal(10,4)
+          
+          - name: equityontotalasset
+            description: "Equity to Total Assets ratio"
+            type: decimal(10,4)
+          
+          - name: equityonliability
+            description: "Equity to Liability ratio"
+            type: decimal(10,4)
+          
+          - name: currentpayment
+            description: "Current Ratio"
+            type: decimal(10,4)
+          
+          - name: quickpayment
+            description: "Quick Ratio"
+            type: decimal(10,4)
+          
+          - name: epschange
+            description: "EPS Change"
+            type: decimal(10,4)
+          
+          - name: ebitdaonstock
+            description: "EBITDA to Stock ratio"
+            type: decimal(10,4)
+          
+          - name: grossprofitmargin
+            description: "Gross Profit Margin"
+            type: decimal(10,4)
+          
+          - name: operatingprofitmargin
+            description: "Operating Profit Margin"
+            type: decimal(10,4)
+          
+          - name: posttaxmargin
+            description: "Post-tax Margin"
+            type: decimal(10,4)
+          
+          - name: debtonequity
+            description: "Debt to Equity ratio"
+            type: decimal(10,4)
+          
+          - name: debtonasset
+            description: "Debt to Asset ratio"
+            type: decimal(10,4)
+          
+          - name: debtonebitda
+            description: "Debt to EBITDA ratio"
+            type: decimal(10,4)
+          
+          - name: shortonlongdebt
+            description: "Short-term to Long-term Debt ratio"
+            type: decimal(10,4)
+          
+          - name: assetonequity
+            description: "Asset to Equity ratio"
+            type: decimal(10,4)
+          
+          - name: capitalbalance
+            description: "Capital Balance"
+            type: decimal(10,4)
+          
+          - name: cashonequity
+            description: "Cash to Equity ratio"
+            type: decimal(10,4)
+          
+          - name: cashoncapitalize
+            description: "Cash to Capitalization ratio"
+            type: decimal(10,4)
+          
+          - name: cashcirculation
+            description: "Cash Circulation"
+            type: decimal(10,4)
+          
+          - name: revenueonworkcapital
+            description: "Revenue to Working Capital ratio"
+            type: decimal(10,4)
+          
+          - name: capexonfixedasset
+            description: "CAPEX to Fixed Asset ratio"
+            type: decimal(10,4)
+          
+          - name: revenueonasset
+            description: "Revenue to Asset ratio"
+            type: decimal(10,4)
+          
+          - name: posttaxonpretax
+            description: "Post-tax to Pre-tax ratio"
+            type: decimal(10,4)
+          
+          - name: ebitonrevenue
+            description: "EBIT to Revenue ratio"
+            type: decimal(10,4)
+          
+          - name: pretaxonebit
+            description: "Pre-tax to EBIT ratio"
+            type: decimal(10,4)
+          
+          - name: payableonequity
+            description: "Payable to Equity ratio"
+            type: decimal(10,4)
+          
+          - name: ebitdaonstockchange
+            description: "EBITDA to Stock Change ratio"
+            type: decimal(10,4)
+          
+          - name: bookvaluepersharechange
+            description: "Book Value Per Share Change"
+            type: decimal(10,4)

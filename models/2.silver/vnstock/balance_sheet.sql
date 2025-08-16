@@ -43,4 +43,4 @@ SELECT
     payable,
     year,
     quarter
-FROM "vnstock"."balance_sheet"
+FROM {{ source('source_vnstock', 'balance_sheet') }}  

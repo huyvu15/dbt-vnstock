@@ -2,15 +2,30 @@ dbt_dwh_main:
   outputs:
     prod:
       type:                   athena
-      s3_staging_dir:         s3://glutisify-datalake/vnstock/raw/ # S3 location to store Athena query results and metadata
-      s3_data_dir:            s3://glutisify-datalake/vnstock/ # Prefix for storing tables (bronze/silver/gold)
-      s3_data_naming:         unique # the type of naming convention used when writing to S3
-      s3_tmp_table_dir:       s3://glutisify-datalake/vnstock/tmp/ # Prefix for storing temporary tables
+      s3_staging_dir:         s3://glutisify-datalake/vnstock/tmp/sliver
+      s3_data_dir:            s3://glutisify-datalake/vnstock/silver/
+      s3_data_naming:         unique
+      s3_tmp_table_dir:       s3://glutisify-datalake/vnstock/tmp/
       region_name:            ap-southeast-1
       database:               awsdatacatalog
-      schema:                 vnstock-silver # default schema
-      aws_profile_name:       "default" # AWS profile name
+      schema:                 vnstock-silver
+      aws_profile_name:       "default"
+      threads:                3
+      num_retries:            1
+    
+    silver:
+      type:                   athena
+      s3_staging_dir:         s3://glutisify-datalake/vnstock/silver/
+      s3_data_dir:            s3://glutisify-datalake/vnstock/silver/
+      s3_data_naming:         unique
+      s3_tmp_table_dir:       s3://glutisify-datalake/vnstock/tmp/
+      region_name:            ap-southeast-1
+      database:               awsdatacatalog
+      schema:                 vnstock-silver
+      aws_profile_name:       "default"
       threads:                1
       num_retries:            1
   
   target: prod
+
+# test: s3://eup-result/Unsaved/ || glutisify-datalake-temp-prod
